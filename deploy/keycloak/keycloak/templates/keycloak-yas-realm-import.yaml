@@ -526,7 +526,9 @@ spec:
         clientAuthenticatorType: client-secret
         secret: TVacLC0cQ8tiiEKiTVerTb2YvwQ1TRJF
         redirectUris:
-          - {{ .Values.backofficeRedirectUrl }}/*
+{{ range .Values.backofficeRedirectUrls }}
+          - {{ . }}/*
+{{ end }}
           - http://localhost:3000/*
           - http://localhost:8087/*
         webOrigins: [ ]
@@ -820,7 +822,9 @@ spec:
         clientAuthenticatorType: client-secret
         secret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
         redirectUris:
-          - {{ .Values.storefrontRedirectUrl }}/*
+{{ range .Values.storefrontRedirectUrls }}
+          - {{ . }}/*
+{{ end }}
           - http://localhost:8087/*
         webOrigins: [ ]
         notBefore: 0
@@ -933,6 +937,9 @@ spec:
         alwaysDisplayInConsole: false
         clientAuthenticatorType: client-secret
         redirectUris:
+{{ range .Values.apiRedirectUrls }}
+          - {{ . }}/*
+{{ end }}
           - http://api.yas.local.com/*
           - http://localhost:8080/*
           - http://localhost:8081/*
@@ -947,6 +954,9 @@ spec:
           - http://localhost:8092/*
           - http://localhost:8093/*
         webOrigins:
+{{ range .Values.apiRedirectUrls }}
+          - {{ . }}
+{{ end }}
           - http://api.yas.local.com
           - http://localhost:8080
           - http://localhost:8081
