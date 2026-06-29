@@ -526,9 +526,7 @@ spec:
         clientAuthenticatorType: client-secret
         secret: TVacLC0cQ8tiiEKiTVerTb2YvwQ1TRJF
         redirectUris:
-          {{ range .Values.backofficeRedirectUrls }}
-          - {{ . }}/*
-          {{ end }}
+          - {{ .Values.backofficeRedirectUrl }}/*
           - http://localhost:3000/*
           - http://localhost:8087/*
         webOrigins: [ ]
@@ -822,9 +820,7 @@ spec:
         clientAuthenticatorType: client-secret
         secret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
         redirectUris:
-          {{ range .Values.storefrontRedirectUrls }}
-          - {{ . }}/*
-          {{ end }}
+          - {{ .Values.storefrontRedirectUrl }}/*
           - http://localhost:8087/*
         webOrigins: [ ]
         notBefore: 0

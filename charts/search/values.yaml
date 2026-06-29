@@ -1,6 +1,6 @@
 backend:
   image:
-    repository: ghcr.io/23120049/yas-search
+    repository: ghcr.io/nashtech-garage/yas-search
     tag: latest
 
   nameOverride: search

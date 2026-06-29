@@ -1,6 +1,6 @@
 backend:
   image:
-    repository: ghcr.io/23120049/yas-{{service}}
+    repository: ghcr.io/nashtech-garage/yas-{{service}}
     tag: latest
 
   nameOverride: {{service}}

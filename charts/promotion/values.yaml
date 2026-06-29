@@ -1,6 +1,6 @@
 backend:
   image:
-    repository: ghcr.io/23120049/yas-promotion
+    repository: ghcr.io/nashtech-garage/yas-promotion
     tag: latest
 
   nameOverride: promotion
