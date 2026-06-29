@@ -80,7 +80,7 @@ Bellow is the values of [values.yaml](../charts/yas-configuration/values.yaml)
 ## Yas helm charts
 All charts of Yas application situated in `charts` folder
 
-To Install the Yas helm charts access to [https://nashtech-garage.github.io/yas/](https://nashtech-garage.github.io/yas/)
+To Install the Yas helm charts access to [https://23120049.github.io/yas/](https://23120049.github.io/yas/)
 
 ## Observability
 The Yas observability follow by the standard of Open Telemetry recommendation.
