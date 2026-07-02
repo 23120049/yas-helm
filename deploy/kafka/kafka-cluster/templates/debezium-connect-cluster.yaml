@@ -5,6 +5,7 @@ metadata:
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
+  version: 4.1.0
   replicas: 1
   bootstrapServers: yas-kafka-kafka-bootstrap.infra.svc.cluster.local:9092
   image: {{ .Values.debeziumConnect.image }}
@@ -28,13 +29,13 @@ spec:
         artifacts:
           - type: tgz
             url: https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.7.4.Final/debezium-connector-postgres-2.7.4.Final-plugin.tar.gz
-    resources:
+  resources:
     requests:
       memory: 512Mi
       cpu: 250m
     limits:
       memory: 1Gi
-      cpu: "1"
+      cpu: "1" 
 
   template:
     pod:
