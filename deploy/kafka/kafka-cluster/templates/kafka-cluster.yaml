@@ -1,7 +1,8 @@
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
-  name: kafka-cluster
+  name: yas-kafka
+  namespace: infra
 spec:
   kafka:
     replicas: {{ .Values.kafka.replicas }}
