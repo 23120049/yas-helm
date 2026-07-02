@@ -15,10 +15,9 @@ spec:
   statusStorageTopic: yas-connect-status
   config:
     # -1 means it will use the default replication factor configured in the broker
-    config.storage.replication.factor: -1
-    offset.storage.replication.factor: -1
-    status.storage.replication.factor: -1
-  {{- if eq .Values.debeziumConnect.buildImage true }}
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
   build:
     output:
       type: docker
@@ -50,5 +49,3 @@ spec:
                     operator: In
                     values:
                       - kafka
-
-  {{- end }}
