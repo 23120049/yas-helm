@@ -3,7 +3,7 @@ kind: KafkaConnector
 metadata:
   name: postgres-source
   labels:
-    strimzi.io/cluster: yas-connect
+    strimzi.io/cluster: debezium-connect-cluster
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
@@ -20,12 +20,12 @@ spec:
     value.converter: org.apache.kafka.connect.json.JsonConverter
     key.converter: org.apache.kafka.connect.json.JsonConverter
 ---
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnector
 metadata:
-  name: debezium-connector-postgresql-product-db-staging
+  name: postgres-source-staging
   labels:
-    strimzi.io/cluster: debezium-connect-cluster
+    strimzi.io/cluster: yas-connect
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
