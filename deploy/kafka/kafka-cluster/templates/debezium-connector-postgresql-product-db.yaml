@@ -1,9 +1,9 @@
 apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnector
 metadata:
-  name: postgres-source
+  name: debezium-connector-postgresql-product-db-dev
   labels:
-    strimzi.io/cluster: yas-connect
+    strimzi.io/cluster: debezium-connect-cluster
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
@@ -23,9 +23,9 @@ spec:
 apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnector
 metadata:
-  name: postgres-source-staging
+  name: debezium-connector-postgresql-product-db-staging
   labels:
-    strimzi.io/cluster: yas-connect
+    strimzi.io/cluster: debezium-connect-cluster
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:

@@ -1,10 +1,10 @@
 apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
-  name: yas-kafka-pool
+  name: kafka-cluster-pool
   namespace: infra
   labels:
-    strimzi.io/cluster: yas-kafka
+    strimzi.io/cluster: kafka-cluster
 spec:
   replicas: 1
   roles:
@@ -23,10 +23,15 @@ spec:
 apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
-  name: yas-kafka
+  name: kafka-cluster
   namespace: infra
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
 spec:
   kafka:
+    version: 4.1.0
+    metadataVersion: 4.1-IV0
     listeners:
       - name: plain
         port: 9092
