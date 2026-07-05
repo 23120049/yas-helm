@@ -6,17 +6,18 @@ metadata:
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
-  version: 4.1.0
+  version: 4.2.0
   replicas: 1
   bootstrapServers: kafka-cluster-kafka-bootstrap:9092
+
+  groupId: debezium-connect-cluster
+  configStorageTopic: debezium-connect-cluster-configs
+  offsetStorageTopic: debezium-connect-cluster-offsets
+  statusStorageTopic: debezium-connect-cluster-status
 
   config:
     config.providers: secrets
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
-    group.id: connect-cluster
-    offset.storage.topic: kafka_connect_offsets
-    config.storage.topic: kafka_connect_configs
-    status.storage.topic: kafka_connect_status
     config.storage.replication.factor: -1
     offset.storage.replication.factor: -1
     status.storage.replication.factor: -1
