@@ -1,4 +1,4 @@
-hostname: grafana.yas.100-108-98-79.sslip.io
+hostname: grafana.yas.local.com
 grafana:
   username: admin
   password: admin

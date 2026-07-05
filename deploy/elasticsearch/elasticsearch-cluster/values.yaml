@@ -4,4 +4,4 @@ kibana:
   ingress:
     enabled: true
     className: nginx
-    hostname: kibana.yas.100-108-98-79.sslip.io
+    hostname: kibana.yas.local.com
