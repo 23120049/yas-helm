@@ -4,7 +4,7 @@ metadata:
   name: connector-configuration-role-binding
 subjects:
   - kind: ServiceAccount
-    name: debezium-connect-cluster-connect
+    name: {{ .Values.debeziumConnect.name }}-connect
     namespace: {{ include "kafka.namespace" . }}
 roleRef:
   kind: Role

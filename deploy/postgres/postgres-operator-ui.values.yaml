@@ -1,4 +1,4 @@
-hostname: &hostname pgoperator.yas.local.com
+hostname: &hostname pgoperator.yas.100-108-98-79.sslip.io
 ingress:
   enabled: true
   annotations:

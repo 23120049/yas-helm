@@ -48,14 +48,14 @@ All of YAS microservice deployed in `yas` namespace
 - Setup hosts file
 edit host file `/etc/hots`
 ```shell
-192.168.49.2 pgoperator.yas.local.com
-192.168.49.2 pgadmin.yas.local.com
-192.168.49.2 akhq.yas.local.com
-192.168.49.2 kibana.yas.local.com
-192.168.49.2 identity.yas.local.com
-192.168.49.2 backoffice.yas.local.com
-192.168.49.2 storefront.yas.local.com
-192.168.49.2 grafana.yas.local.com
+192.168.49.2 pgoperator.yas.100-108-98-79.sslip.io
+192.168.49.2 pgadmin.yas.100-108-98-79.sslip.io
+192.168.49.2 akhq.yas.100-108-98-79.sslip.io
+192.168.49.2 kibana.yas.100-108-98-79.sslip.io
+192.168.49.2 identity.yas.100-108-98-79.sslip.io
+192.168.49.2 backoffice.yas.100-108-98-79.sslip.io
+192.168.49.2 storefront.yas.100-108-98-79.sslip.io
+192.168.49.2 grafana.yas.100-108-98-79.sslip.io
 
 ```
 `192.168.49.2` is ip of minikbe node use this command line to get the ip of minikube

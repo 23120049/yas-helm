@@ -1,11 +1,29 @@
 kafka:
+  name: yas-kafka
+  nodePoolName: yas-kafka-pool
+  version: 4.2.0
+  metadataVersion: "4.2"
   replicas: 1
-zookeeper:
-  replicas: 1
-  storeSize: 5Gi
+  storageSize: 20Gi
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 2Gi
 postgresql:
   username: yasadminuser
   password: admin
 debeziumConnect:
+  name: yas-connect
   image: ghcr.io/23120049/debezium-connect-postgresql:latest
   buildImage: false #Enabled when build debezium-connect-postgresql image
+  connectorsEnabled: true
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi

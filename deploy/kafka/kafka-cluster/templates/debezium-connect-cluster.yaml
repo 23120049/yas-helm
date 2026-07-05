@@ -1,13 +1,15 @@
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnect
 metadata:
-  name: debezium-connect-cluster
+  name: {{ .Values.debeziumConnect.name }}
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
   replicas: 1
-  bootstrapServers: kafka-cluster-kafka-bootstrap:9092
+  bootstrapServers: {{ .Values.kafka.name }}-kafka-bootstrap:9092
   image: {{ .Values.debeziumConnect.image }}
+  resources:
+    {{- toYaml .Values.debeziumConnect.resources | nindent 4 }}
   config:
     config.providers: secrets
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider

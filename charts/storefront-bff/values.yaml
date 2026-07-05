@@ -12,7 +12,7 @@ backend:
 
   ingress:
     enabled: true
-    host: storefront.yas.local.com
+    host: storefront.yas.100-108-98-79.sslip.io
     path: /
 
   extraEnvs:

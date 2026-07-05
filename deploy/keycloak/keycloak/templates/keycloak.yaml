@@ -27,8 +27,10 @@ spec:
   proxy:
     headers: xforwarded
   ingress:
-    enabled: true
-    className: nginx
+    enabled: {{ .Values.ingress.enabled }}
+    {{- if .Values.ingress.enabled }}
+    className: {{ .Values.ingress.className }}
+    {{- end }}
   unsupported:
     podTemplate:
       spec:
