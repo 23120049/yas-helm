@@ -8,8 +8,17 @@ spec:
   replicas: 1
   bootstrapServers: {{ .Values.kafka.name }}-kafka-bootstrap:9092
   image: {{ .Values.debeziumConnect.image }}
+  template:
+      pod:
+        imagePullSecrets:
+          - name: ghcr-secret
   resources:
     {{- toYaml .Values.debeziumConnect.resources | nindent 4 }}
+  
+  groupId: yas-connect-cluster
+  configStorageTopic: yas-connect-cluster-configs
+  offsetStorageTopic: yas-connect-cluster-offsets
+  statusStorageTopic: yas-connect-cluster-status
   config:
     config.providers: secrets
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
@@ -21,6 +30,7 @@ spec:
     config.storage.replication.factor: -1
     offset.storage.replication.factor: -1
     status.storage.replication.factor: -1
+    
   {{- if eq .Values.debeziumConnect.buildImage true }}
   build:
     output:
