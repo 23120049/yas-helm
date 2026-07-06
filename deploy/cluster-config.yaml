@@ -4,7 +4,7 @@ postgresql:
   username: yasadminuser
   password: admin
 kafka:
-  replicas: 1
+  replicas: 3
 zookeeper:
   replicas: 1
 elasticsearch:
