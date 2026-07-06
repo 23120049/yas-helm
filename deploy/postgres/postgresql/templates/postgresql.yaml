@@ -45,7 +45,7 @@ spec:
     tax: {{ .Values.username | quote }}
     recommendation: {{ .Values.username | quote }}
     webhook: {{ .Values.username | quote }}
-    grafana: {{ .Values.username }}
+    grafana: {{ .Values.username | quote }}
   patroni:
     slots:
       eventuate_slot_cart:
