@@ -12,6 +12,8 @@ spec:
     database.user: ${secrets:postgresql.credentials:username}
     database.password: ${secrets:postgresql.credentials:password}
     topic.prefix: dbproductdev
+    slot.name: debezium_product_dev
+    publication.name: dbproductdev_publication
     database.dbname: product_dev
     slot.name: debezium_product_dev
     publication.name: debezium_product_dev_pub
@@ -36,6 +38,8 @@ spec:
     database.user: ${secrets:postgresql.credentials:username}
     database.password: ${secrets:postgresql.credentials:password}
     topic.prefix: dbproductstaging
+    slot.name: debezium_product_staging
+    publication.name: dbproductstaging_publication
     database.dbname: product_staging
     slot.name: debezium_product_staging
     publication.name: debezium_product_staging_pub
