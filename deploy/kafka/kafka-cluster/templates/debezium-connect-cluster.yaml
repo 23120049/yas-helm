@@ -1,13 +1,24 @@
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnect
 metadata:
-  name: debezium-connect-cluster
+  name: {{ .Values.debeziumConnect.name }}
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
   replicas: 1
-  bootstrapServers: kafka-cluster-kafka-bootstrap:9092
+  bootstrapServers: {{ .Values.kafka.name }}-kafka-bootstrap:9092
   image: {{ .Values.debeziumConnect.image }}
+  template:
+      pod:
+        imagePullSecrets:
+          - name: ghcr-secret
+  resources:
+    {{- toYaml .Values.debeziumConnect.resources | nindent 4 }}
+  
+  groupId: yas-connect-cluster
+  configStorageTopic: yas-connect-cluster-configs
+  offsetStorageTopic: yas-connect-cluster-offsets
+  statusStorageTopic: yas-connect-cluster-status
   config:
     config.providers: secrets
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
@@ -19,15 +30,4 @@ spec:
     config.storage.replication.factor: -1
     offset.storage.replication.factor: -1
     status.storage.replication.factor: -1
-  {{- if eq .Values.debeziumConnect.buildImage true }}
-  build:
-    output:
-      type: docker
-      image: {{ .Values.debeziumConnect.image }}
-      pushSecret: docker-registry.secret
-    plugins:
-      - name: debezium-postgresql-connector
-        artifacts:
-          - type: tgz
-            url: https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.3.0.Final/debezium-connector-postgres-2.3.0.Final-plugin.tar.gz
-  {{- end }}
+    

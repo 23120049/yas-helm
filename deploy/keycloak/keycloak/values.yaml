@@ -1,4 +1,7 @@
 hostname: identity.yas.local.com
+ingress:
+  enabled: true
+  className: nginx
 backofficeRedirectUrls:
   - http://dev-backoffice.yas.local.com
   - http://staging-backoffice.yas.local.com

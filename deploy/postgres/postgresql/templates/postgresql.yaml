@@ -37,7 +37,7 @@ spec:
     keycloak: {{ .Values.username | quote }}
     location: {{ .Values.username | quote }}
     media: {{ .Values.username | quote }}
-    order: {{ .Values.username | quote  }}
+    order: {{ .Values.username | quote }}
     payment: {{ .Values.username | quote }}
     product: {{ .Values.username | quote }}
     promotion: {{ .Values.username | quote }}

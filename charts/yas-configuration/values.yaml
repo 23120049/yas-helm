@@ -59,15 +59,16 @@ applicationConfig:
         resourceserver:
           jwt:
             issuer-uri: http://identity.yas.local.com/realms/Yas
+            jwk-set-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/certs
 
     datasource:
       url:
       username: ${POSTGRESQL_USERNAME}
       password: ${POSTGRESQL_PASSWORD}
     kafka:
-      bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
+      bootstrap-servers: yas-kafka-kafka-bootstrap.infra:9092
       consumer:
-        bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
+        bootstrap-servers: yas-kafka-kafka-bootstrap.infra:9092
 
   springdoc:
     oauthflow:
@@ -205,7 +206,7 @@ backofficeBffExtraConfig:
   spring:
     data:
       redis:
-        host: redis-master.redis
+        host: redis-master.infra
         password: ${REDIS_PASSWORD}
         port: 6379
     security:
@@ -213,7 +214,11 @@ backofficeBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              authorization-uri: http://identity.yas.local.com/realms/Yas/protocol/openid-connect/auth
+              token-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/token
+              jwk-set-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/certs
+              user-info-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/userinfo
+              user-name-attribute: preferred_username
           registration:
             api-client:
               provider: keycloak
@@ -225,7 +230,7 @@ storefrontBffExtraConfig:
   spring:
     data:
       redis:
-        host: redis-master.redis
+        host: redis-master.infra
         password: ${REDIS_PASSWORD}
         port: 6379
     security:
@@ -233,7 +238,11 @@ storefrontBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              authorization-uri: http://identity.yas.local.com/realms/Yas/protocol/openid-connect/auth
+              token-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/token
+              jwk-set-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/certs
+              user-info-uri: http://keycloak-service.infra/realms/Yas/protocol/openid-connect/userinfo
+              user-name-attribute: preferred_username
           registration:
             api-client:
               provider: keycloak
@@ -252,7 +261,7 @@ mediaApplicationConfig:
 # Customer application config custom
 customerApplicationConfig:
   keycloak:
-    auth-server-url: http://identity.yas.local.com
+    auth-server-url: http://keycloak-service.infra
     realm: Yas
     resource: customer-management
     credentials:
@@ -261,7 +270,7 @@ customerApplicationConfig:
 # Search application config custom
 searchApplicationConfig:
   elasticsearch:
-    url: elasticsearch-es-http.elasticsearch
+    url: elasticsearch-es-http.infra
     username: ${ELASTICSEARCH_USERNAME}
     password: ${ELASTICSEARCH_PASSWORD}
 
