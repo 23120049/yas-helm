@@ -27,7 +27,7 @@ kind: KafkaConnector
 metadata:
   name: debezium-connector-postgresql-product-db-staging
   labels:
-    strimzi.io/cluster: debezium-connect-cluster
+    strimzi.io/cluster: {{ .Values.debeziumConnect.name }}
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
