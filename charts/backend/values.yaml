@@ -46,9 +46,27 @@ deployment:
     reloader.stakater.com/search: "true"
   extraAnnotations: []
 
-extraEnvs: []
-#  - name: EXTRA_VARIABLE_NAME
-#    value: extra variable data
+extraEnvs:
+  - name: JAVA_TOOL_OPTIONS
+    value: "-javaagent:/otel/opentelemetry-javaagent.jar"
+
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: "http://opentelemetry-collector.observability.svc.cluster.local:4318"
+
+  - name: OTEL_EXPORTER_OTLP_PROTOCOL
+    value: "http/protobuf"
+
+  - name: OTEL_TRACES_EXPORTER
+    value: "otlp"
+
+  - name: OTEL_METRICS_EXPORTER
+    value: "otlp"
+
+  - name: OTEL_LOGS_EXPORTER
+    value: "otlp"
+
+  - name: OTEL_RESOURCE_ATTRIBUTES
+    value: "deployment.environment=staging" 
 
 extraEnvFroms: []
 #  - secretRef:
