@@ -94,11 +94,6 @@ extraVolumeMounts:
   - name: otel-agent
     mountPath: /otel
 
-
-extraVolumeMounts: []
-#  - mountPath: /example-path
-#    name: volume-extra-example
-
 extraApplicationConfigPaths: []
 #  - /opt/config/application-example.yaml
 
