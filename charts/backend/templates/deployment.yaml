@@ -39,6 +39,19 @@ spec:
         {{- with .Values.extraVolumes}}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+      initContainers:
+        - name: download-otel-java-agent
+          image: curlimages/curl:8.7.1
+          command:
+            - sh
+            - -c
+            - |
+              curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v2.16.0/opentelemetry-javaagent.jar \
+                -o /otel/opentelemetry-javaagent.jar
+          volumeMounts:
+            - name: otel-agent
+              mountPath: /otel
+      
       containers:
         - name: {{ include "backend.fullname" . }}
           securityContext:
