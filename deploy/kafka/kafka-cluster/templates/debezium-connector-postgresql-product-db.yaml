@@ -12,6 +12,7 @@ spec:
     database.user: ${secrets:postgresql.credentials:username}
     database.password: ${secrets:postgresql.credentials:password}
     topic.prefix: dbproductdev
+    database.dbname: product_dev
     slot.name: debezium_product_dev
     table.include.list: public.product
     schema.include.list: public
