@@ -1,4 +1,4 @@
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnector
 metadata:
   name: debezium-connector-postgresql-product-db-dev
@@ -13,8 +13,6 @@ spec:
     database.password: ${secrets:postgresql.credentials:password}
     topic.prefix: dbproductdev
     slot.name: debezium_product_dev
-    publication.name: dbproductdev_publication
-    database.dbname: product_dev
     table.include.list: public.product
     schema.include.list: public
     key.converter.schemas.enable: false
@@ -22,7 +20,7 @@ spec:
     value.converter: org.apache.kafka.connect.json.JsonConverter
     key.converter: org.apache.kafka.connect.json.JsonConverter
 ---
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaConnector
 metadata:
   name: debezium-connector-postgresql-product-db-staging
@@ -36,8 +34,6 @@ spec:
     database.user: ${secrets:postgresql.credentials:username}
     database.password: ${secrets:postgresql.credentials:password}
     topic.prefix: dbproductstaging
-    slot.name: debezium_product_staging
-    publication.name: dbproductstaging_publication
     database.dbname: product_staging
     table.include.list: public.product
     schema.include.list: public
