@@ -69,10 +69,13 @@ extraObjects: []
 #    data:
 #      example-key: base64 encoded data
 
-extraVolumes: []
-#  - name: volume-extra-example
-#    configMap:
-#      name: example-extra-configmap
+extraVolumes:
+  - name: otel-agent
+    emptyDir: {}
+extraVolumeMounts:
+  - name: otel-agent
+    mountPath: /otel
+
 
 extraVolumeMounts: []
 #  - mountPath: /example-path
