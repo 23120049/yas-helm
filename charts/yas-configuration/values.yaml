@@ -96,9 +96,6 @@ applicationConfig:
 # Gateway config for bff microservices
 gatewayRoutesConfig:
   spring:
-    config:
-      activate:
-        on-profile: prod
     cloud:
       gateway:
         routes:
