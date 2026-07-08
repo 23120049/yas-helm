@@ -197,6 +197,10 @@ gatewayRoutesConfig:
             filters:
               - RewritePath=/api/(?<segment>.*), /$\{segment}
               - TokenRelay=
+          - id: api
+            uri: http://localhost:80
+            predicates:
+              - Path=/disabled-api-route-override/**
           - id: ui
             uri: ${UI_HOST}
             predicates:
