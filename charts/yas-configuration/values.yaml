@@ -98,7 +98,7 @@ gatewayRoutesConfig:
   spring:
     cloud:
       gateway:
-        routes:
+        server.webflux.routes:
           - id: product_api
             uri: http://product
             predicates:
@@ -156,7 +156,7 @@ gatewayRoutesConfig:
               - RewritePath=/api/(?<segment>.*), /$\{segment}
               - TokenRelay=
           - id: promotion_api
-            uri: http://protion
+            uri: http://promotion
             predicates:
               - Path=/api/promotion/**
             filters:
