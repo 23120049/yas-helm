@@ -18,8 +18,6 @@ backend:
   extraEnvs:
     - name: SPRING_PROFILES_ACTIVE
       value: k8s
-    - name: SPRING_CONFIG_ADDITIONAL_LOCATION
-      value: "file:/opt/yas/config/application.yaml,file:/opt/yas/gateway-routes-config/gateway-routes-config.yaml,file:/opt/yas/extra-config/storefront-bff-extra-config.yaml"
     - name: UI_HOST
       value: http://storefront-ui:3000
   extraEnvFroms:

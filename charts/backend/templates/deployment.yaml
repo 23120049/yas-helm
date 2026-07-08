@@ -58,10 +58,10 @@ spec:
               value: {{ .Values.databaseConnectionUrl }}/{{ .Values.databaseName }}
             {{- if .Values.extraApplicationConfigPaths }}
             - name: SPRING_CONFIG_ADDITIONAL_LOCATION
-              value: /opt/yas/config/application.yaml,{{ join "," .Values.extraApplicationConfigPaths }}
+              value: file:/opt/yas/config/application.yaml,file:{{ join ",file:" .Values.extraApplicationConfigPaths }}
             {{- else }}
             - name: SPRING_CONFIG_ADDITIONAL_LOCATION
-              value: /opt/yas/config/application.yaml
+              value: file:/opt/yas/config/application.yaml
             {{- end }}
             {{- with .Values.extraEnvs }}
               {{- toYaml . | nindent 12 }}
