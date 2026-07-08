@@ -224,6 +224,7 @@ backofficeBffExtraConfig:
               provider: keycloak
               client-id: backoffice-bff
               client-secret: ${KEYCLOAK_BACKOFFICE_BFF_CLIENT_SECRET}
+              authorization-grant-type: authorization_code
               scope: openid, profile, email, roles
 
 storefrontBffExtraConfig:
@@ -248,6 +249,7 @@ storefrontBffExtraConfig:
               provider: keycloak
               client-id: storefront-bff
               client-secret: ${KEYCLOAK_STOREFRONT_BFF_CLIENT_SECRET}
+              authorization-grant-type: authorization_code
               scope: openid, profile, email, roles
 
 # Media application config custom
