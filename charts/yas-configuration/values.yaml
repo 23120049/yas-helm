@@ -204,13 +204,6 @@ gatewayRoutesConfig:
 
 backofficeBffExtraConfig:
   spring:
-    cloud:
-      gateway:
-        routes:
-          - id: nextjs
-            uri: http://backoffice-ui:3000
-            predicates:
-              - Path=/**
     data:
       redis:
         host: redis-master.infra
@@ -237,13 +230,6 @@ backofficeBffExtraConfig:
 
 storefrontBffExtraConfig:
   spring:
-    cloud:
-      gateway:
-        routes:
-          - id: nextjs
-            uri: http://storefront-ui:3000
-            predicates:
-              - Path=/**
     data:
       redis:
         host: redis-master.infra
