@@ -18,3 +18,18 @@ postgresql:
 bootstrapAdmin:
   username: admin
   password: admin
+
+realmImport:
+  # Recovery bootstrap. Disable after yas-realm-kc-v2 has completed; the
+  # idempotent PostSync reconciler below then owns the desired realm state.
+  enabled: true
+  name: yas-realm-kc-v2
+
+realmReconciler:
+  enabled: true
+  image:
+    repository: quay.io/keycloak/keycloak
+    tag: "26.0.2"
+    pullPolicy: IfNotPresent
+  backoffLimit: 2
+  activeDeadlineSeconds: 900

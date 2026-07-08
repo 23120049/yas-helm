@@ -1,0 +1,94 @@
+{{- if .Values.realmReconciler.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: yas-realm-reconciler
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  backoffLimit: {{ .Values.realmReconciler.backoffLimit }}
+  activeDeadlineSeconds: {{ .Values.realmReconciler.activeDeadlineSeconds }}
+  template:
+    metadata:
+      labels:
+        {{- include "keycloak.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: realm-reconciler
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: realm-reconciler
+          image: "{{ .Values.realmReconciler.image.repository }}:{{ .Values.realmReconciler.image.tag }}"
+          imagePullPolicy: {{ .Values.realmReconciler.image.pullPolicy }}
+          command:
+            - /bin/bash
+            - -ec
+            - |
+              KCADM=/opt/keycloak/bin/kcadm.sh
+              REALM=Yas
+              REALM_FILE=/opt/yas/realm/yas-realm.json
+
+              authenticated=false
+              for attempt in $(seq 1 60); do
+                if "$KCADM" config credentials \
+                  --server "$KEYCLOAK_URL" \
+                  --realm master \
+                  --user "$KEYCLOAK_ADMIN" \
+                  --password "$KEYCLOAK_ADMIN_PASSWORD" >/dev/null 2>&1; then
+                  authenticated=true
+                  break
+                fi
+                echo "Waiting for Keycloak admin API (attempt ${attempt}/60)..."
+                sleep 5
+              done
+
+              if [ "$authenticated" != true ]; then
+                echo "Keycloak admin API did not become available" >&2
+                exit 1
+              fi
+
+              if "$KCADM" get "realms/$REALM" >/dev/null 2>&1; then
+                echo "Realm $REALM exists; reconciling importable resources."
+                "$KCADM" create partialImport \
+                  -r "$REALM" \
+                  -f "$REALM_FILE" \
+                  -s ifResourceExists=OVERWRITE
+              else
+                echo "Realm $REALM is absent; creating it from desired state."
+                if ! "$KCADM" create realms -f "$REALM_FILE"; then
+                  echo "Create raced with another importer; reconciling existing realm."
+                  "$KCADM" create partialImport \
+                    -r "$REALM" \
+                    -f "$REALM_FILE" \
+                    -s ifResourceExists=OVERWRITE
+                fi
+              fi
+
+              "$KCADM" get "realms/$REALM" >/dev/null
+              test "$("$KCADM" get clients -r "$REALM" -q clientId=backoffice-bff --fields clientId --format csv --noquotes | tr -d '\r')" = "backoffice-bff"
+              test "$("$KCADM" get clients -r "$REALM" -q clientId=storefront-bff --fields clientId --format csv --noquotes | tr -d '\r')" = "storefront-bff"
+              echo "Realm $REALM and required BFF clients are ready."
+          env:
+            - name: KEYCLOAK_URL
+              value: http://keycloak-service.{{ .Release.Namespace }}.svc.cluster.local
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: username
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: password
+          volumeMounts:
+            - name: desired-realm
+              mountPath: /opt/yas/realm
+              readOnly: true
+      volumes:
+        - name: desired-realm
+          configMap:
+            name: yas-realm-desired-state
+{{- end }}

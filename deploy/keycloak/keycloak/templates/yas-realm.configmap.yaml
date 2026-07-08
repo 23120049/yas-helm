@@ -1,0 +1,12 @@
+{{- if .Values.realmReconciler.enabled }}
+{{- $realm := include "keycloak.yasRealm" . | fromYaml }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yas-realm-desired-state
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+data:
+  yas-realm.json: |
+{{ $realm | toPrettyJson | nindent 4 }}
+{{- end }}
