@@ -15,6 +15,8 @@ backend:
   extraEnvs:
     - name: SPRING_PROFILES_ACTIVE
       value: k8s
+    - name: SPRING_CONFIG_IMPORT
+      value: "optional:file:/opt/yas/gateway-routes-config/gateway-routes-config.yaml,optional:file:/opt/yas/extra-config/backoffice-bff-extra-config.yaml"
     - name: UI_HOST
       value: http://backoffice-ui:3000
   extraEnvFroms:
