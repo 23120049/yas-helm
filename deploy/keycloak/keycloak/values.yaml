@@ -22,7 +22,7 @@ bootstrapAdmin:
 realmImport:
   # Recovery bootstrap. Disable after yas-realm-kc-v2 has completed; the
   # idempotent PostSync reconciler below then owns the desired realm state.
-  enabled: true
+  enabled: false
   name: yas-realm-kc-v2
 
 realmReconciler:
