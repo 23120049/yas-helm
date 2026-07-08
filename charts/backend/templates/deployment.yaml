@@ -69,6 +69,20 @@ spec:
               value: {{ .Values.logbackXmlPath }}
             - name: SPRING_DATASOURCE_URL
               value: {{ .Values.databaseConnectionUrl }}/{{ .Values.databaseName }}
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/otel/opentelemetry-javaagent.jar"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://opentelemetry-collector.observability.svc.cluster.local:4318"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "deployment.environment=staging" 
             {{- if .Values.extraApplicationConfigPaths }}
             - name: SPRING_CONFIG_ADDITIONAL_LOCATION
               value: /opt/yas/config/application.yaml,{{ join "," .Values.extraApplicationConfigPaths }}
