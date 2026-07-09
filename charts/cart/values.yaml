@@ -8,6 +8,8 @@ backend:
   databaseName: cart
   ingress:
     enabled: false
+  podAnnotations:
+    sidecar.istio.io/inject: "true"
   extraVolumes:
     - name: cart-application-config
       configMap:
